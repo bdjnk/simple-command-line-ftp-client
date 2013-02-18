@@ -258,6 +258,7 @@ int main(int argc, char * argv[])
 	cout << "enter a commmand (try 'help'):" << endl;
 
 	char buff[60]; // buffer for inputed command
+	cmd_sd = -1;   // initialize as not connected
 
 	while (true)
 	{
@@ -621,6 +622,7 @@ int main(int argc, char * argv[])
 		}
 		else if (strcmp(command, "close") == 0) //------------- CLOSE --------------
 		{
+			checkctl();
 			xarg("usage: close");
 
 			switch(fork()) // see faq q4
@@ -643,11 +645,11 @@ int main(int argc, char * argv[])
 		else if (strcmp(command, "quit") == 0) //-------------- QUIT ---------------
 		{
 			xarg("usage: quit");
-
 			if (cmd_sd == -1)
 			{
 				break;
 			}
+
 			switch(fork()) // see faq q4
 			{
 			case 0:  // child process
